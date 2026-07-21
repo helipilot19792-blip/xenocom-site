@@ -383,7 +383,7 @@ export default function TerminalDemo({
 
   return (
     <div
-      className="fixed inset-0 z-[70] flex items-center justify-center bg-[#010203]/90 px-3 py-4 text-emerald-100 sm:px-5"
+      className="fixed inset-0 z-[70] overflow-y-auto bg-[#010203]/90 px-3 py-4 text-emerald-100 sm:px-5"
       role="dialog"
       aria-modal="true"
       aria-label="Signal relay console"
@@ -391,7 +391,7 @@ export default function TerminalDemo({
       onClick={closeDemo}
     >
       <div
-        className="relative flex h-full w-full max-w-6xl flex-col overflow-hidden rounded-[2rem] border border-emerald-400/30 bg-[#030706]/95 shadow-[0_0_90px_rgba(36,255,121,0.12)] sm:h-[90vh]"
+        className="relative mx-auto flex h-auto min-h-[min(90vh,760px)] w-full max-w-6xl flex-col overflow-hidden rounded-[2rem] border border-emerald-400/30 bg-[#030706]/95 shadow-[0_0_90px_rgba(36,255,121,0.12)] sm:h-[90vh]"
         onClick={(event) => event.stopPropagation()}
       >
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(93,255,146,0.16),_transparent_55%)]" />
@@ -416,7 +416,7 @@ export default function TerminalDemo({
           </div>
         </div>
 
-        <div className="relative flex flex-1 flex-col gap-4 p-3 sm:p-6 lg:flex-row">
+        <div className="relative flex flex-1 flex-col gap-4 overflow-y-auto p-3 sm:p-6 lg:flex-row">
           <section className="flex min-h-[280px] flex-1 flex-col rounded-[1.25rem] border border-emerald-400/25 bg-[#06110a]/90 p-3 sm:p-4 lg:min-h-0">
             <div className="mb-3 flex flex-wrap items-center justify-between gap-2 border-b border-emerald-400/20 pb-2 text-[0.64rem] uppercase tracking-[0.3em] text-emerald-200/70">
               <span>Signal Queue</span>
@@ -457,7 +457,7 @@ export default function TerminalDemo({
             </div>
           </section>
 
-          <aside className="flex w-full flex-col gap-3 rounded-[1.25rem] border border-emerald-400/25 bg-[#06110a]/90 p-3 sm:p-4 lg:w-[280px]">
+          <aside className="flex w-full flex-col gap-3 rounded-[1.25rem] border border-emerald-400/25 bg-[#06110a]/90 p-3 sm:p-4 lg:w-[280px] lg:flex-shrink-0">
             <div className="rounded-[1rem] border border-emerald-400/20 bg-black/40 p-3">
               <div className="font-mono text-[0.6rem] uppercase tracking-[0.3em] text-amber-300/80">Relay Status</div>
               <div className="mt-3 space-y-2 font-mono text-[0.68rem] uppercase tracking-[0.28em] text-emerald-100/80">
