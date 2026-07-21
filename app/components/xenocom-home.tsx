@@ -213,7 +213,7 @@ export default function XenocomHome() {
                 </p>
               </div>
               <a
-                href="https://github.com/helipilot19792-blip/xenocom-site/releases/download/v0.1.0-alpha/app-release.apk"
+                href="https://github.com/helipilot19792-blip/xenocom-site/releases/download/v0.1.0-alpha/xenocom-2026-07-21-641.apk"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex min-w-[260px] items-center justify-center rounded-full border border-emerald-400/60 bg-emerald-400/15 px-6 py-4 font-mono text-[0.78rem] uppercase tracking-[0.32em] text-emerald-200 shadow-[0_0_25px_rgba(94,255,144,0.2)] transition hover:bg-emerald-400/25"
