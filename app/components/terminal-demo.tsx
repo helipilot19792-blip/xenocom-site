@@ -78,6 +78,7 @@ export default function TerminalDemo({
   const [announcement, setAnnouncement] = useState('Relay console ready.');
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const historyEntryActiveRef = useRef(false);
   const audioContextRef = useRef<AudioContext | null>(null);
   const gainRef = useRef<GainNode | null>(null);
   const testTonePlayedRef = useRef(false);
@@ -194,6 +195,10 @@ export default function TerminalDemo({
     clearTimers();
     stopAudio();
     setIsOpen(false);
+    if (historyEntryActiveRef.current) {
+      historyEntryActiveRef.current = false;
+      window.history.back();
+    }
     scheduleTimeout(() => onClose(), 120);
   }, [onClose]);
 
@@ -320,6 +325,8 @@ export default function TerminalDemo({
     document.body.style.overflow = 'hidden';
     document.documentElement.style.overflow = 'hidden';
     closeButtonRef.current?.focus();
+    historyEntryActiveRef.current = true;
+    window.history.pushState({ xenocomDemo: true }, '', window.location.href);
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -350,12 +357,20 @@ export default function TerminalDemo({
       }
     };
 
+    const handlePopState = () => {
+      if (historyEntryActiveRef.current) {
+        closeDemo();
+      }
+    };
+
     window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('popstate', handlePopState);
 
     return () => {
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
       window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('popstate', handlePopState);
       clearTimers();
       stopAudio();
       triggerRef.current?.focus();
@@ -368,13 +383,17 @@ export default function TerminalDemo({
 
   return (
     <div
-      className="fixed inset-0 z-[70] flex items-center justify-center bg-[#010203] px-3 py-4 text-emerald-100 sm:px-5"
+      className="fixed inset-0 z-[70] flex items-center justify-center bg-[#010203]/90 px-3 py-4 text-emerald-100 sm:px-5"
       role="dialog"
       aria-modal="true"
       aria-label="Signal relay console"
       ref={dialogRef}
+      onClick={closeDemo}
     >
-      <div className="relative flex h-full w-full max-w-6xl flex-col overflow-hidden rounded-[2rem] border border-emerald-400/30 bg-[#030706]/95 shadow-[0_0_90px_rgba(36,255,121,0.12)] sm:h-[90vh]">
+      <div
+        className="relative flex h-full w-full max-w-6xl flex-col overflow-hidden rounded-[2rem] border border-emerald-400/30 bg-[#030706]/95 shadow-[0_0_90px_rgba(36,255,121,0.12)] sm:h-[90vh]"
+        onClick={(event) => event.stopPropagation()}
+      >
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(93,255,146,0.16),_transparent_55%)]" />
         <div className="pointer-events-none absolute inset-0 opacity-70 [background-image:repeating-linear-gradient(to_bottom,rgba(157,255,180,0.07)_0,rgba(157,255,180,0.07)_1px,transparent_1px,transparent_4px)]" />
 
@@ -384,7 +403,17 @@ export default function TerminalDemo({
             <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/80" />
             <span className="h-2.5 w-2.5 rounded-full bg-emerald-200/70" />
           </div>
-          <div className="text-[0.65rem] text-emerald-200/70">SIMULATED OPERATOR CHANNEL</div>
+          <div className="flex items-center gap-3">
+            <div className="text-[0.65rem] text-emerald-200/70">SIMULATED OPERATOR CHANNEL</div>
+            <button
+              type="button"
+              onClick={closeDemo}
+              ref={closeButtonRef}
+              className="rounded-full border border-emerald-400/35 px-2.5 py-1.5 text-[0.62rem] uppercase tracking-[0.3em] text-emerald-200 transition hover:bg-emerald-400/10"
+            >
+              Close
+            </button>
+          </div>
         </div>
 
         <div className="relative flex flex-1 flex-col gap-4 p-3 sm:p-6 lg:flex-row">
@@ -473,14 +502,6 @@ export default function TerminalDemo({
                 className="rounded-full border border-emerald-400/35 px-3 py-2 text-[0.72rem] uppercase tracking-[0.3em] text-emerald-200 transition hover:bg-emerald-400/10"
               >
                 {paused ? 'Resume' : 'Pause'}
-              </button>
-              <button
-                type="button"
-                onClick={closeDemo}
-                ref={closeButtonRef}
-                className="rounded-full border border-emerald-400/35 px-3 py-2 text-[0.72rem] uppercase tracking-[0.3em] text-emerald-200 transition hover:bg-emerald-400/10"
-              >
-                Close
               </button>
               <button
                 type="button"
