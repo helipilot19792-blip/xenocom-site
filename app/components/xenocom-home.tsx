@@ -209,7 +209,7 @@ export default function XenocomHome() {
                   Download alpha APK
                 </h2>
                 <p className="mt-4 text-base leading-7 text-emerald-100/80">
-                  The installer is preparing for release. Until then, this page keeps the download path ready for the first public build.
+                  The alpha APK is now available for Android testers. Download it below to install the current build and share feedback from the field.
                 </p>
               </div>
               <a
