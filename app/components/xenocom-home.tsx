@@ -8,7 +8,7 @@ const navItems = [
   { label: 'Features', href: '#features' },
   { label: 'Download', href: '#download' },
   { label: 'Changelog', href: '#changelog' },
-  { label: 'Privacy', href: '#privacy' },
+  { label: 'Privacy', href: '/privacy' },
 ];
 
 const featureCards = [
@@ -225,10 +225,15 @@ export default function XenocomHome() {
           </section>
         </main>
 
-        <footer id="privacy" className="border-t border-emerald-400/20 py-6 text-center text-[0.74rem] uppercase tracking-[0.3em] text-emerald-200/70 sm:text-sm">
+        <footer className="border-t border-emerald-400/20 py-6 text-center text-[0.74rem] uppercase tracking-[0.3em] text-emerald-200/70 sm:text-sm">
           <p>Independent software.</p>
           <p className="mt-2 text-emerald-200/60">
             Not affiliated with any movie, game, or entertainment franchise.
+          </p>
+          <p className="mt-3">
+            <a href="/privacy" className="transition hover:text-emerald-100">
+              Privacy Policy
+            </a>
           </p>
         </footer>
       </div>
